@@ -1,5 +1,7 @@
 #lang racket
 
+;Currently this reads in programs like a -> b and converts to '(a b).  
+
 (provide (except-out 
            (all-from-out racket)
            #%module-begin)
