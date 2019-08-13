@@ -30,6 +30,7 @@
 (provide cat 
  rotate 
  edison-cat
+ authors-cat
  first-cat-photo 
  first-viral-cat)
 
@@ -41,26 +42,24 @@
  (h:scale 0.2
   (h:bitmap/file (build-path cat-path "img" png-name))))
 
-(define (first-viral-cat/base) 
- (load-cat "first-viral-cat.png"))
-
-(define (first-cat-photo/base) 
- (load-cat "maybe-first-cat-photo.png"))
-
-(define (edison-cat/base) 
- (load-cat "edison-cat.png"))
-
 (define (cat . params)
-  (apply cat-main (first-cat-photo/base) params))
+  (apply cat-main (load-cat "maybe-first-cat-photo.png") params))
 
 (define (first-cat-photo . params)
-  (apply cat-main (first-cat-photo/base) params))
+  (apply cat-main (load-cat "maybe-first-cat-photo.png") params))
 
 (define (first-viral-cat . params)
-  (apply cat-main (first-viral-cat/base) params))
+  (apply cat-main (load-cat "first-viral-cat.png") params))
 
 (define (edison-cat . params)
-  (apply cat-main (edison-cat/base) params))
+  (apply cat-main (load-cat "edison-cat.png") params))
+
+(define (authors-cat . params)
+  (apply cat-main 
+         (h:overlay 
+           (h:text "TODO: KITTY" 24 'red)
+           (load-cat "edison-cat.png")) 
+         params))
 
 (define (rotate i)
   (h:rotate -45 i))
