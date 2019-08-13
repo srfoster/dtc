@@ -29,6 +29,7 @@
 
 (provide cat 
  rotate 
+ edison-cat
  first-cat-photo 
  first-viral-cat)
 
@@ -36,14 +37,18 @@
 
 (define-runtime-path cat-path "./cats")
 
+(define (load-cat png-name)
+ (h:scale 0.2
+  (h:bitmap/file (build-path cat-path "img" png-name))))
 
 (define (first-viral-cat/base) 
- (h:scale 0.2
-  (h:bitmap/file (build-path cat-path "img" "first-viral-cat.png"))))
+ (load-cat "first-viral-cat.png"))
 
 (define (first-cat-photo/base) 
- (h:scale 0.2
-  (h:bitmap/file (build-path cat-path "img" "maybe-first-cat-photo.png"))))
+ (load-cat "maybe-first-cat-photo.png"))
+
+(define (edison-cat/base) 
+ (load-cat "edison-cat.png"))
 
 (define (cat . params)
   (apply cat-main (first-cat-photo/base) params))
@@ -53,6 +58,9 @@
 
 (define (first-viral-cat . params)
   (apply cat-main (first-viral-cat/base) params))
+
+(define (edison-cat . params)
+  (apply cat-main (edison-cat/base) params))
 
 (define (rotate i)
   (h:rotate -45 i))
