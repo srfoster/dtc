@@ -8,15 +8,16 @@
          (rename-out 
            [my-begin #%module-begin]))
 
-(require pict )
+(require pict (only-in "./basic.rkt" datum->story))
 (require (for-syntax racket
                      "./arrows/parsing.rkt"  ))
 
 (module reader syntax/module-reader
-  dtc/story/arrows)
+  dtc/story/images)
 
-(define-syntax-rule (quote-all s ...)
-  (begin 's ...))
+(define-syntax-rule (render-all s ...)
+ (begin
+  (datum->story 's) ...))
 
 (define-syntax (my-begin stx)
   (define tokens (rest (syntax->datum stx)))
@@ -25,5 +26,5 @@
     (tokens->stories tokens) )
 
   #`(#%module-begin
-     (quote-all
+     (render-all
        #,@stories) ))

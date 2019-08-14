@@ -2,7 +2,8 @@
 
 ;Lang for making silly cat images.
 
-(provide (except-out 
+(provide normal-begin
+         (except-out 
            (all-from-out racket)
            #%module-begin)
          (rename-out 
@@ -24,15 +25,26 @@
   #`(#%module-begin
      #,@stories))
 
+(define-syntax-rule (normal-begin e ...)
+  (#%module-begin e ...))
 
 ;Actual cat lang below.  TODO: Move to new file when this gets too long.  
 
 (provide cat 
  rotate 
+ rotate-left
+ shrink
  edison-cat
  authors-cat
  first-cat-photo 
- first-viral-cat)
+ first-viral-cat
+ 
+ redify
+
+ dijkstra
+ habermann
+ notkin
+ griswold)
 
 (require racket/runtime-path)
 
@@ -56,13 +68,50 @@
 
 (define (authors-cat . params)
   (apply cat-main 
-         (h:overlay 
-           (h:text "TODO: KITTY" 24 'red)
-           (load-cat "edison-cat.png")) 
+         (load-cat "kitty.png") 
          params))
 
+
+;Other cool cats :)
+
+(define (dijkstra . params)
+  (apply cat-main 
+         (load-cat "dijkstra.png") 
+         params))
+
+(define (habermann . params)
+  (apply cat-main 
+         (load-cat "habermann.png") 
+         params))
+
+(define (notkin . params)
+  (apply cat-main 
+         (load-cat "notkin.png") 
+         params))
+
+(define (griswold . params)
+  (apply cat-main 
+         (load-cat "griswold.png") 
+         params))
+
+
 (define (rotate i)
-  (h:rotate -45 i))
+  (define actual-i (if (procedure? i) (i) i))
+  (h:rotate -45 actual-i))
+
+(define (rotate-left i)
+  (define actual-i (if (procedure? i) (i) i))
+  (h:rotate 45 actual-i))
+
+(define (shrink i)
+  (define actual-i (if (procedure? i) (i) i))
+  (h:scale 1/2 actual-i))
+
+(define (redify i)
+  (define actual-i (if (procedure? i) (i) i))
+  (h:overlay
+    (h:text "TODO: Red" 24 'red)
+    actual-i))
 
 (define (cat-main i . params)
   ((apply compose 
