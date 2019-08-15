@@ -1,20 +1,11 @@
 #lang racket
 
-(provide starter image-chess)
+(provide chess-start image-chess)
 
-(require 2htdp/image racket/runtime-path)
+(require 2htdp/image racket/runtime-path "./base.rkt")
 
 (define-runtime-path img "./img")
 
-(define starter
-  '(R N B Q K B N R
-      P P P P P P P P
-      _ _ _ _ _ _ _ _
-      _ _ _ _ _ _ _ _
-      _ _ _ _ _ _ _ _ 
-      _ _ _ _ _ _ _ _
-      p p p p p p p p
-      r n b q k b n r))
 
 (define (image-chess pieces)
   (define r1 (take (drop pieces (* 8 0)) 8))
@@ -55,8 +46,17 @@
 
   (define symbol (lookup-symbol letter))
 
+
+  (define piece (text symbol 15 "black"))
+
+  (define scaled-piece
+    (scale/xy
+     1
+     (/ 20 (image-height piece))
+     piece))
+  
   (overlay
-   (scale 1.1 (text symbol 15 "black"))
+   scaled-piece 
    (square 20 'solid 'transparent)))
 
 (define (lookup-symbol s)
@@ -88,5 +88,5 @@
   (above r1 r2 r1 r2 r1 r2 r1 r2))
 
 (module+ test
-  (scale 2 (image-chess (shuffle starter))))
+  (scale 2 (image-chess (shuffle chess-start))))
 
