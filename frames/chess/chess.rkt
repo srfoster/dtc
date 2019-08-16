@@ -63,16 +63,16 @@
   (cond
     [(string=? "K" s) "♚"]
     [(string=? "Q" s) "♛"]
-    [(string=? "B" s) "♜"]
-    [(string=? "N" s) "♝"]
-    [(string=? "R" s) "♞"]
+    [(string=? "R" s) "♜"]
+    [(string=? "B" s) "♝"]
+    [(string=? "N" s) "♞"]
     [(string=? "P" s) "♟"]
 
     [(string=? "k" s) "♔"]
     [(string=? "q" s) "♕"]
-    [(string=? "b" s) "♖"]
-    [(string=? "n" s) "♗"]
-    [(string=? "r" s) "♘"]
+    [(string=? "r" s) "♖"]
+    [(string=? "b" s) "♗"]
+    [(string=? "n" s) "♘"]
     [(string=? "p" s) "♙"]))
 
 (define (bg)
