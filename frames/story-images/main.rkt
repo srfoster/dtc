@@ -94,6 +94,9 @@
   (image
     '(this is a `(nested (nested test))))
 
+  (image
+    '(this is a `(nested `(nested test))))
+
   
   (image
     '(this is a `(nested ,(nested test))))
