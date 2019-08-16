@@ -2,6 +2,7 @@
 
 (provide 
  right-arrows
+ datum->node
  datum->story
  datum->story-left
 
