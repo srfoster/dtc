@@ -5,6 +5,7 @@
  datum->node
  datum->story
  datum->story-left
+ arrow
 
  (except-out 
   (all-from-out racket)
