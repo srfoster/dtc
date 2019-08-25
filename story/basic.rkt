@@ -33,7 +33,7 @@
     i))
 
 (define (arrow c)
-  (beside (square 10 'solid c) 
+  (beside (rectangle 10 2 'solid c) 
           (rotate 30 (triangle 15 'solid c))))
 
 (define (add-arrows #:arrow a is)
@@ -56,7 +56,7 @@
 (define (datum->node #:color (c "black") e)
   (define t 
     (if (or (image? e)) e
-        (text (~a e) 18 'black) ))
+        (text (~a e) 14 'black) ))
   (frame (inset t 5) 
          #:color c #:line-width 3))
 

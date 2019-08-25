@@ -41,6 +41,8 @@
  
  redify
 
+ meme-teacher
+ dtc-cover
  dijkstra
  habermann
  notkin
@@ -94,6 +96,15 @@
          (load-cat "griswold.png") 
          params))
 
+(define (meme-teacher . params)
+  (apply cat-main 
+         (load-cat "meme-teacher.jpg") 
+         params))
+         
+(define (dtc-cover . params)
+  (apply cat-main 
+         (load-cat "dtc-cover.png") 
+         params))
 
 (define (rotate i)
   (define actual-i (if (procedure? i) (i) i))
