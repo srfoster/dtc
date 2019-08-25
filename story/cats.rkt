@@ -46,7 +46,28 @@
  dijkstra
  habermann
  notkin
- griswold)
+ griswold
+ 
+ meso-star-1
+ meso-star-2
+ meso-star-3
+ meso-star-4
+
+ meso-sun-1
+ meso-sun-2
+ meso-sun-3
+ meso-sun-4
+
+ meso-rain-1
+ meso-rain-2
+ meso-rain-3
+ meso-rain-4
+
+ meso-fish-1
+ meso-fish-2
+ meso-fish-3
+ meso-fish-4
+ )
 
 (require racket/runtime-path)
 
@@ -105,6 +126,90 @@
   (apply cat-main 
          (load-cat "dtc-cover.png") 
          params))
+
+
+(define (meso-sun-1 . params)
+  (apply cat-main 
+         (load-cat "meso-sun-1.png") 
+         params))
+
+(define (meso-sun-2 . params)
+  (apply cat-main 
+         (load-cat "meso-sun-2.png") 
+         params))
+
+(define (meso-sun-3 . params)
+  (apply cat-main 
+         (load-cat "meso-sun-3.png") 
+         params))
+
+(define (meso-sun-4 . params)
+  (apply cat-main 
+         (load-cat "meso-sun-4.png") 
+         params))
+
+
+(define (meso-rain-1 . params)
+  (apply cat-main 
+         (load-cat "meso-rain-1.png") 
+         params))
+
+(define (meso-rain-2 . params)
+  (apply cat-main 
+         (load-cat "meso-rain-2.png") 
+         params))
+
+(define (meso-rain-3 . params)
+  (apply cat-main 
+         (load-cat "meso-rain-3.png") 
+         params))
+
+(define (meso-rain-4 . params)
+  (apply cat-main 
+         (load-cat "meso-rain-4.png") 
+         params))
+
+
+(define (meso-star-1 . params)
+  (apply cat-main 
+         (load-cat "meso-star-1.png") 
+         params))
+
+(define (meso-star-2 . params)
+  (apply cat-main 
+         (load-cat "meso-star-2.png") 
+         params))
+
+(define (meso-star-3 . params)
+  (apply cat-main 
+         (load-cat "meso-star-3.png") 
+         params))
+
+(define (meso-star-4 . params)
+  (apply cat-main 
+         (load-cat "meso-star-4.png") 
+         params))
+
+(define (meso-fish-1 . params)
+  (apply cat-main 
+         (load-cat "meso-fish-1.png") 
+         params))
+
+(define (meso-fish-2 . params)
+  (apply cat-main 
+         (load-cat "meso-fish-2.png") 
+         params))
+
+(define (meso-fish-3 . params)
+  (apply cat-main 
+         (load-cat "meso-fish-3.png") 
+         params))
+
+(define (meso-fish-4 . params)
+  (apply cat-main 
+         (load-cat "meso-fish-4.png") 
+         params))
+
 
 (define (rotate i)
   (define actual-i (if (procedure? i) (i) i))

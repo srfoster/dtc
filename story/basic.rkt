@@ -34,7 +34,7 @@
 
 (define (arrow c)
   (beside (rectangle 10 2 'solid c) 
-          (rotate 30 (triangle 15 'solid c))))
+          (rotate 30 (triangle 10 'solid c))))
 
 (define (add-arrows #:arrow a is)
   (define arrows (map (thunk* a)
