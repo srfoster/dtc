@@ -1,5 +1,7 @@
 #lang racket
 
+(provide image)
+
 (require 2htdp/image
          (only-in "../../story/basic.rkt"
                   datum->story
