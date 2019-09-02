@@ -85,7 +85,7 @@
   (define r1 (apply beside (flatten (map list blacks whites))))
   (define r2 (apply beside (flatten (map list whites blacks))))
 
-  (above r1 r2 r1 r2 r1 r2 r1 r2))
+  (above r2 r1 r2 r1 r2 r1 r2 r1))
 
 (module+ test
   (scale 2 (image-chess (shuffle chess-start))))
