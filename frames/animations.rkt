@@ -25,6 +25,9 @@
 (provide (all-from-out "./chess/games.rkt"))
 (require "./chess/games.rkt")
 
+(provide (all-from-out "./story-images/main.rkt"))
+(require "./story-images/main.rkt")
+
 (provide (all-from-out "../story/cats.rkt"))
 (require (except-in
             "../story/cats.rkt"
