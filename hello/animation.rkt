@@ -14,10 +14,10 @@
 
 
 
-
+;Dynamic require is a work-around for the racket/gui base problem.  Breaks documentation building otherwise.
 (define (print s) 
   (define spin
-    (dynamic-require '"./animation/spin.rkt" 'spin))
+    (dynamic-require 'dtc/hello/animation/spin 'spin))
 
   (spin (print-image s)))
 

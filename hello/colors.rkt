@@ -10,7 +10,7 @@
 (define (pick l)
   (first (shuffle l)))
 
-(define (print s #:bg (bg (pick '(red geen blue))))
+(define (print s #:bg (bg (pick '(red green blue cyan purple magenta))))
   (cc-superimpose
     (filled-rectangle 100 100 #:color (~a bg))
     (text (~a s)))) 
