@@ -10,10 +10,38 @@
 (module reader syntax/module-reader
   dtc/frames/animations)
 
-(define (animation . stuff)
-  ;TODO: support a bunch of different types.  Construct meta-game slideshow thingy
-  (void))
 
+;ANIMATION
+
+(provide (all-from-out "./animations/main.rkt"))
+(require "./animations/main.rkt")
+
+;Code Images
+
+
+(require pict/code
+         syntax/parse/define
+         (only-in pict pict->bitmap))
+
+(provide image-code)
+
+(define-syntax (image-code stx)
+  #`(pict->bitmap
+      #,(syntax-parse stx
+          [(_ (quote datum)) 
+           #`(typeset-code (syntax datum))]
+          [(_ (quasiquote datum)) 
+           #`(typeset-code (syntax datum))]
+          [(_ datum) 
+           #`(typeset-code (syntax datum))])))
+
+
+
+
+
+;Misc and reprovides
+
+;Um do we need this?
 (define-syntax-rule (my-begin expr ...)
   (#%module-begin 
    expr ...))

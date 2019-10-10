@@ -1,9 +1,18 @@
 #lang racket
 
+;TODO: Implement this on top of a flashcard system.  Release that system.
+;      Use it for ThoughtSTEM online trainings
+
 (require meta-engine 
          2htdp/image)
 
 (define delay 50)
+
+(provide animate-deck
+         animate)
+
+(define (animate-deck stuff)
+  stuff)
 
 (define (animate frames)
   (define es (map datum->entity 

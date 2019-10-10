@@ -11,7 +11,8 @@
 
 (require (prefix-in h: 2htdp/image))
 (require (for-syntax racket
-                     "./arrows/parsing.rkt"  ))
+                     "./arrows/parsing.rkt"  )
+         image-coloring)
 
 (module reader syntax/module-reader
   dtc/story/cats)
@@ -225,9 +226,7 @@
 
 (define (redify i)
   (define actual-i (if (procedure? i) (i) i))
-  (h:overlay
-    (h:text "TODO: Red" 24 'red)
-    actual-i))
+  (tint-image "red" actual-i))
 
 (define (cat-main i . params)
   ((apply compose 
