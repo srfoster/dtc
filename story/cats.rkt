@@ -41,6 +41,11 @@
  first-viral-cat
  
  redify
+ blueify
+ greenify
+ orangeify
+ purpleify
+ yellowify
 
  meme-teacher
  dtc-cover
@@ -227,6 +232,26 @@
 (define (redify i)
   (define actual-i (if (procedure? i) (i) i))
   (tint-image "red" actual-i))
+
+(define (blueify i)
+  (define actual-i (if (procedure? i) (i) i))
+  (tint-image "blue" actual-i))
+
+(define (greenify i)
+  (define actual-i (if (procedure? i) (i) i))
+  (tint-image "green" actual-i))
+
+(define (purpleify i)
+  (define actual-i (if (procedure? i) (i) i))
+  (tint-image "purple" actual-i))
+
+(define (yellowify i)
+  (define actual-i (if (procedure? i) (i) i))
+  (tint-image "yellow" actual-i))
+
+(define (orangeify i)
+  (define actual-i (if (procedure? i) (i) i))
+  (tint-image "orange" actual-i))
 
 (define (cat-main i . params)
   ((apply compose 

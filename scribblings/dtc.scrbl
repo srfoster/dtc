@@ -3,104 +3,342 @@
                     racket/base]]
 
 @title{dtc}
-@author{thoughtstem}
+@author{Stephen R. Foster and Lindsey Handley}
 
-@defmodule[dtc/hello/normal]
+@(require (prefix-in a: dtc/frames/story-images/main))
+@(require dtc/story/cats)
+@(require (prefix-in h: 2htdp/image))
+
+@(h:scale 2 (dtc-cover))
+
+This is the documentation page for the programming languages used in the book @emph{Don't Teach Coding}.  
+
+@(define (datum->downstory l)
+    (define (~i d)
+     (h:overlay
+      (h:square 120 'solid 'transparent)
+      (if (h:image? d)
+       d
+       (h:text (~a d) 24 'darkgray))))
+
+   (define (rot i) (h:rotate 90 i))
+
+   ((compose rot rot rot)
+    (a:image
+      (map (compose rot ~i) l)))
+)
+
+@(define (center-text s)
+  (define ss (string-split s))
+  (apply h:above
+         (map (curryr h:text 24 'darkgray) ss)))
+
+@(define (p1 t)
+  (h:above
+   (h:overlay (h:text t 24 'black)
+              (h:rectangle 155 50 'solid 'transparent))
+   (datum->downstory
+     `(,(center-text"A\nWizard's\nTale")
+       ,(h:overlay (center-text "A\nLanguage\nWithout")
+           (h:square 120 'solid 'darkgreen))
+       ,(h:overlay (center-text "A\nLanguage\nWithin")
+           (h:square 120 'solid 'darkgreen))
+       ,(center-text "Languages\nWithout")
+       ,(center-text "Languages\nWithin")))
+   (h:square 10 'solid 'transparent)))
+
+@(require (only-in pict inset))
+
+These languages are used in various sections of the book, shown in green below:
+
+@centered{
+  @(h:scale 0.58
+      (a:image
+       (list (p1 "Prologues")
+        (p1 "Beginnings")
+        (p1 "Middles")
+        (p1 "Ends"))))
+}
+
+@section{Chapter 1: Prologues}
+
+Here we document the various @racket["Hello, World!"] languages from @bold{Chapter 1}.
+
+@defmodule[dtc/hello/normal #:lang]
 
 @defproc[(print [s string?])
          void?]{
-  
+  This simply prints to the screen whatever you give it, allowing you to participate in the age-old tradition of writing @racket["Hello, World!"] programs in the earliest moments of your coding journey.
+
+  Simply:
+
+  @codeblock{
+    #lang dtc/hello/normal
+    (print "Hello, World!")
+  } 
+
+  The output of Stories like @racket[(print "Hello, World!")] are intended to be compared with identical-looking stories written in different languages (see below).  The point is to show by demonstration that syntax can remain constant while semantics differ from language to language.
 }
 
-@defmodule[dtc/hello/colors]
+@defmodule[dtc/hello/colors #:lang]
+
+@(require (prefix-in colors: dtc/hello/colors))
 
 @defproc[(print [s string?])
          void?]{
-  
+  This allows you to particplate in the age-old tradition of writing @racket["Hello, World!"] programs -- but with a colorful twist!  (I mean, come on, it's the 21st century, @racket["Hello, World!"] programs are allowed to be cooler than just displaying text.)
+
+  Simply:
+
+  @codeblock{
+    #lang dtc/hello/colors
+    (print "Hello, World!")
+  } 
+
+  Gives you something a bit different every time:
+
+  @(random-seed 42)
+
+  @(colors:print "Hello, World")
+  @(colors:print "Hello, World")
+  @(colors:print "Hello, World")
+
 }
 
 
-@defmodule[dtc/hello/animation]
+@defmodule[dtc/hello/animation #:lang]
+
 
 
 @defproc[(print [s string?])
          void?]{
-  
+  This allows you to particplate in the age-old tradition of writing @racket["Hello, World!"] programs -- but with an @emph{animated} twist!  
+
+  @codeblock{
+    #lang dtc/hello/colors
+    (print "Hello, World!")
+  } 
+
+That produces an animation describable with this Story:
+
+@(let ([hw
+         (h:overlay
+           (h:text "Hello, World" 24 'red)
+           (h:circle 50 'solid 'white))]
+       [s (h:square 200 'solid 'black)])
+   (a:image
+     (list
+      (h:overlay (h:rotate 0 hw) s)
+      (h:overlay (h:rotate -45 hw) s)
+      (h:overlay (h:rotate -90 hw) s))))
+
+
+
 }
 
+@section{Chapter 2: Beginnings}
+
+Here we document the various cat-related languages from @bold{Chapter 2}. 
+
+@defmodule[dtc/story/images #:lang]
+
+This language has no specific vocabulary.  In fact, @emph{any} Story is valid.
+
+@bold{Rules}: Moments should be separated by an arrow (@racket[->]).  Separate Stories must go on separate lines.
+
+This language simply compiles valid Stories to images.  For example, this program will produce three images:
+
+@codeblock{
+  #lang dtc/story/images
+  
+  today -> I -> wrote -> "Hello, World"
+  love -> conquers -> all
+  history -> matters
+
+}
+
+Images can be saved to disk within DrRacket by right-clicking on them and selecting @tt{Save image...}
+
+Images can be embedded @emph{in} a Story by placing the cursor where you want the image and clicking @tt{Insert > Insert Image ...} 
+
+@bold{Exercise} Can you produce this image?
+
+@(a:image `(,(h:circle 30 'solid 'red) is a circle))
 
 
-@defmodule[dtc/story/images]
+@defmodule[dtc/story/cats #:lang]
 
-No functions.  Just turns Stories into images.
+A language with various vocabulary for producing and manipulating images of cats.
 
+TODO: Additional cats 
+  (e.g. griswold)....
+  Other fun historical cats...
 
-@defmodule[dtc/story/cats]
+TODO: Additional operations (enlarge?? what else??)
 
-Fun with cats..
+TODO: Bonus features...
+  * mesopotamian writing
+  * meme teacher
 
 
 @defproc[(cat) void?]{
-  
+     
+  @(cat) 
+
 }
 
 @defproc[(first-viral-cat) void?]{
-  
+  @(first-viral-cat) 
 }
 
 @defproc[(edison-cat) void?]{
   
+  @(edison-cat) 
 }
 
 @defproc[(authors-cat) void?]{
   
+  @(authors-cat) 
 }
 
-TODO: Additional cats....
 
 
 @defproc[(rotate) void?]{
+
+  @(rotate (cat))
   
 }
 
 @defproc[(shrink) void?]{
   
+  @(shrink (cat))
+}
+
+
+@defproc[(rotate-left) void?]{
+  @(rotate-left (cat))
 }
 
 @defproc[(redify) void?]{
   
+  @(redify (cat))
 }
 
 @defproc[(blueify) void?]{
-  
+  @(blueify (cat))
 }
 
 @defproc[(greenify) void?]{
-  
+  @(greenify (cat))
 }
 
 @defproc[(orangeify) void?]{
-  
+  @(orangeify (cat))
 }
 
 @defproc[(purpleify) void?]{
-  
+  @(purpleify (cat))
 }
 
 @defproc[(yellowify) void?]{
-  
+  @(yellowify (cat))
+}
+
+@defproc[(meme-teacher) void?]{
+  @(meme-teacher)
+}
+
+@defproc[(dijkstra) void?]{
+  @(dijkstra)
+}
+
+@defproc[(habermann) void?]{
+  @(habermann)
+}
+
+@defproc[(notkin) void?]{
+  @(notkin)
+}
+
+@defproc[(griswold) void?]{
+  @(griswold)
+}
+
+@defproc[(meso-star-1) void?]{
+  @(meso-star-1)
+}
+
+@defproc[(meso-star-2) void?]{
+  @(meso-star-2)
+}
+
+@defproc[(meso-star-3) void?]{
+  @(meso-star-3)
+}
+
+@defproc[(meso-star-4) void?]{
+  @(meso-star-4)
+}
+
+@defproc[(meso-sun-1) void?]{
+  @(meso-sun-1)
+}
+
+@defproc[(meso-sun-2) void?]{
+  @(meso-sun-2)
+}
+
+@defproc[(meso-sun-3) void?]{
+  @(meso-sun-3)
+}
+
+@defproc[(meso-sun-4) void?]{
+  @(meso-sun-4)
+}
+
+@defproc[(meso-rain-1) void?]{
+  @(meso-rain-1)
+}
+
+@defproc[(meso-rain-2) void?]{
+  @(meso-rain-2)
+}
+
+@defproc[(meso-rain-3) void?]{
+  @(meso-rain-3)
+}
+
+@defproc[(meso-rain-4) void?]{
+  @(meso-rain-4)
 }
 
 
-TODO: Additional operations
+@defproc[(meso-fish-1) void?]{
+  @(meso-fish-1)
+}
 
+@defproc[(meso-fish-2) void?]{
+  @(meso-fish-2)
+}
 
-@defmodule[dtc/story+/images]
+@defproc[(meso-fish-3) void?]{
+  @(meso-fish-3)
+}
+
+@defproc[(meso-fish-4) void?]{
+  @(meso-fish-4)
+}
+
+@section{Chapter 3: Middles}
+
+Here we document the various nestable Story languages from @bold{Chapter 3}. 
+
+@defmodule[dtc/story+/images #:lang]
 
 No functions.  Just produces images, but with a different syntax.
 
 
-@defmodule[dtc/story+/cats]
+@defmodule[dtc/story+/cats #:lang]
 
 All the same as dtc/story/cats.  Diff syntax..
 
@@ -108,7 +346,7 @@ TODO: Document here or there? Depends on how other one shapes up..
 
 Note: Certain racket functions work sqrt.  Reprovide?
 
-@defmodule[dtc/frames/cats]
+@defmodule[dtc/frames/cats #:lang]
 
 Has image function.  Has everything else from story/cats
 
@@ -121,7 +359,6 @@ Has image function.  Has everything else from story/cats
   
 }
 
-@(require (prefix-in a: dtc/frames/animations))
 
 @defproc[(image [moments (listof moment?)])
          image?]{
@@ -177,9 +414,11 @@ Example:
 }
 
 
-@section{Complete}
+@section{Chapter 4: Ends}
 
-@defmodule[dtc/complete]
+Here we document the various nestable Story languages from @bold{Chapter 4}. 
+
+@defmodule[dtc/complete #:lang]
 
 This language has everthing in it that Racket does, and more.   
 
@@ -314,7 +553,8 @@ We'll now document the things that @racket[dtc/complete] adds to Racket.
 }
 
 
-@(require dtc/complete)
+@(require dtc/frames/image-code)
+@(require (only-in dtc/story/cats rotate))
 
 @defproc[(image-code [s Story?])
          image?]{
