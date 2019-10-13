@@ -31,13 +31,15 @@
 
 ;Actual cat lang below.  TODO: Move to new file when this gets too long.  
 
-(provide cat 
+(provide 
+ cat 
+ meta-cat 
  rotate 
  rotate-left
  shrink
+ grow
  edison-cat
  authors-cat
- first-cat-photo 
  first-viral-cat
  
  redify
@@ -84,10 +86,10 @@
   (h:bitmap/file (build-path cat-path "img" png-name))))
 
 (define (cat . params)
-  (apply cat-main (load-cat "maybe-first-cat-photo.png") params))
+  (apply cat-main (load-cat "cat-in-bowl.png") params))
 
-(define (first-cat-photo . params)
-  (apply cat-main (load-cat "maybe-first-cat-photo.png") params))
+(define (meta-cat . params)
+  (apply cat-main (load-cat "the-photographer.png") params))
 
 (define (first-viral-cat . params)
   (apply cat-main (load-cat "first-viral-cat.png") params))
@@ -228,6 +230,10 @@
 (define (shrink i)
   (define actual-i (if (procedure? i) (i) i))
   (h:scale 1/2 actual-i))
+
+(define (grow i)
+  (define actual-i (if (procedure? i) (i) i))
+  (h:scale 2 actual-i))
 
 (define (redify i)
   (define actual-i (if (procedure? i) (i) i))

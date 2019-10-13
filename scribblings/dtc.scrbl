@@ -138,7 +138,7 @@ That produces an animation describable with this Story:
 
 @section{Chapter 2: Beginnings}
 
-Here we document the various cat-related languages from @bold{Chapter 2}. 
+Here we document the various cat-related and Story-related languages from @bold{Chapter 2}. 
 
 @defmodule[dtc/story/images #:lang]
 
@@ -170,99 +170,215 @@ Images can be embedded @emph{in} a Story by placing the cursor where you want th
 
 A language with various vocabulary for producing and manipulating images of cats.
 
-TODO: Additional cats 
-  (e.g. griswold)....
-  Other fun historical cats...
-
-TODO: Additional operations (enlarge?? what else??)
-
-TODO: Bonus features...
-  * mesopotamian writing
-  * meme teacher
-
-
 @defproc[(cat) void?]{
+  A photograph of a kitten from the 1800s, by Harry Pointer -- the Father of Cat Photos and definer of the cat photography genera.
      
-  @(cat) 
+  @(h:scale 2 (cat))
 
+}
+
+@defproc[(meta-cat) void?]{
+  A photograph of a cat from 1870, by Harry Pointer.  Also, perhaps the first meta-photo of a cat in human history.  Titled @emph{The Photographer}, the image shows a cat apparently operating a camera, while being photographed by a camera.
+     
+  @(h:scale 2 (meta-cat))
 }
 
 @defproc[(first-viral-cat) void?]{
-  @(first-viral-cat) 
+  A frame from one of the first viral cat videos in the history of YouTube.  Uploaded in the year 2006, it can be found @hyperlink["https://www.youtube.com/watch?v=7bcV-TL9mho"]{here}.
+
+  @(h:scale 2 (first-viral-cat))
 }
 
 @defproc[(edison-cat) void?]{
-  
-  @(edison-cat) 
+  The boxing cats filmed in 1894 by Thomas Edison.  The video can be found @hyperlink["https://www.youtube.com/watch?v=k52pLvVmmkU"]{here}.
+ 
+  @(h:scale 2 (edison-cat))
 }
 
 @defproc[(authors-cat) void?]{
+  A cat owned by one of the authors.
   
-  @(authors-cat) 
+  @(h:scale 2 (authors-cat))
 }
 
 
 
 @defproc[(rotate) void?]{
 
+  Rotates an image (of a cat, or otherwise):
+
+  @codeblock{
+   #lang dtc/story/cats
+
+   cat -> rotate
+  }
+
+  Gives:
+
   @(rotate (cat))
+
+  In other languages, the same can be accomplished with a different syntax: 
   
+  @codeblock{
+   #lang dtc/story+/cats
+
+   (rotate (cat))
+  }
 }
 
 @defproc[(shrink) void?]{
+  Halves the size an image (of a cat or otherwise).
+
+  @codeblock{
+   #lang dtc/story/cats
+
+   cat 
+  }
+
+  Gives:
+  
+  @(cat)
+
+  @codeblock{
+   #lang dtc/story/cats
+
+   cat -> shrink
+  }
+
+  Gives:
   
   @(shrink (cat))
+
+
+  @codeblock{
+   #lang dtc/story+/cats
+
+   (shrink (cat))
+  }
+  
+  Is the same. 
+}
+
+@defproc[(grow) void?]{
+  Doubles the size of an image.
+
+  @codeblock{
+   #lang dtc/story/cats
+
+   cat 
+  }
+
+  Gives
+
+  @(cat)
+
+  @codeblock{
+   #lang dtc/story/cats
+
+   cat -> grow
+  }
+
+  Gives:
+
+  @(grow (cat))
+
+  
 }
 
 
 @defproc[(rotate-left) void?]{
+  Same as @racket[rotate], but in the other direction.
+
   @(rotate-left (cat))
 }
 
 @defproc[(redify) void?]{
+  Tints an image red -- e.g.:
   
   @(redify (cat))
 }
 
 @defproc[(blueify) void?]{
+  Tints an image blue -- e.g.:
+
   @(blueify (cat))
 }
 
 @defproc[(greenify) void?]{
+  Tints an image green -- e.g.:
+
   @(greenify (cat))
 }
 
 @defproc[(orangeify) void?]{
+  Tints an image orange -- e.g.:
+
   @(orangeify (cat))
 }
 
 @defproc[(purpleify) void?]{
+  Tints an image purple -- e.g.:
+
   @(purpleify (cat))
 }
 
 @defproc[(yellowify) void?]{
+  Tints an image yellowify -- e.g.:
+
   @(yellowify (cat))
 }
 
 @defproc[(meme-teacher) void?]{
+  A famous image used as the basis for the "Unhelpful High School Teacher" meme, reaching peak popularity in 2011.  For more details, see @hyperlink["https://knowyourmeme.com/memes/unhelpful-high-school-teacher"]{knowyourmeme.com}
+
   @(meme-teacher)
 }
 
 @defproc[(dijkstra) void?]{
-  @(dijkstra)
+  Edsger W. Dijkstra (1930-2002), a famous and influential computer scientist -- a prolific writer, researcher, and mathematician.  
+  
+  @(h:scale 2 (dijkstra))
 }
 
 @defproc[(habermann) void?]{
-  @(habermann)
+  Nico Habermann (1932-1993), influential computer scientist and student of Dijkstra.  His Wikipedia page can be found @hyperlink["https://en.wikipedia.org/wiki/Nico_Habermann"]{here}.  And his teacher/student family tree (from 1990) can be found @hyperlink["http://taoxie.cs.illinois.edu/nicobig.htm"]{here}.
+  
+  @(h:scale 2 (habermann))
 }
 
 @defproc[(notkin) void?]{
-  @(notkin)
+  David Notkin (1955-2013), influential computer scientist and student of Nico Habermann.  His 2013 IEEE Memorandum can be found @hyperlink["https://ieeexplore.ieee.org/document/6519247"]{here}. 
+
+  @(h:scale 2 (notkin))
 }
 
 @defproc[(griswold) void?]{
-  @(griswold)
+  Influential computer scientist, student of David Notkin.  His Wikipedia page can be found @hyperlink["https://en.wikipedia.org/wiki/Bill_Griswold"]{here}.
+
+  @(h:scale 2 (griswold))
 }
+
+@subsection{Bonus images}
+
+Some bonus images of Mesopotamian symbols.  Higher numbers indicate later versions of that symbol.  They can be treated like any other image.  Example:
+
+@codeblock{
+  #lang dtc/complete
+  
+  (image
+    `(,(redify (meso-star-1)) 
+      ,(orangeify (meso-star-2))
+      ,(yellowify (meso-star-3))
+      ,(greenify  (meso-star-4))))
+}
+
+Produces the Story image of how the symbol for "star" grew more abstract over time:
+
+@(a:image
+    `(,(redify (meso-star-1)) 
+      ,(orangeify (meso-star-2))
+      ,(yellowify (meso-star-3))
+      ,(greenify  (meso-star-4))))
 
 @defproc[(meso-star-1) void?]{
   @(meso-star-1)
@@ -355,10 +471,6 @@ Has image function.  Has everything else from story/cats
   
 }
 
-@defproc[(rotate-left) void?]{
-  
-}
-
 
 @defproc[(image [moments (listof moment?)])
          image?]{
@@ -395,6 +507,8 @@ Example:
 @defproc[(napoleon/turk [n number?])
          image?]{
   
+  TODO:
+  Not all of these are finished...
 }
 
 @defproc[(napoleon/turk-raw [n number?])
@@ -405,12 +519,13 @@ Example:
 
 @defproc[(image-chess [s ChessStory?])
          image?]{
+
   
 }
 
 @defproc[(image-tic-tac-toe [s TicTacToeStory?])
          image?]{
-  
+  TODO: IMplement 
 }
 
 
@@ -629,6 +744,9 @@ Remember that once something is an image, other vocabulary that pertains to imag
      `((cat             ,(cat))
        (first-viral-cat ,(first-viral-cat))))
   }
+
+
+  TODO: Embed the large programs from the book...
 }
 
 
