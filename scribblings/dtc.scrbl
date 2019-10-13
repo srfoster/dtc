@@ -451,30 +451,85 @@ Here we document the various nestable Story languages from @bold{Chapter 3}.
 
 @defmodule[dtc/story+/images #:lang]
 
-No functions.  Just produces images, but with a different syntax.
+This is like @litchar{#lang dtc/story/images} except that it recognizes Stories written with the parenthesized syntax, rather than the Arrow syntax.
 
+So instead of this...
+
+@codeblock{
+  #lang dtc/story/images
+  
+  today -> I -> wrote -> "Hello, World"
+  love -> conquers -> all
+  history -> matters
+
+}
+
+... you would write this ...
+
+@codeblock{
+  #lang dtc/story+/images
+  
+  (today I wrote "Hello, World")
+  (love conquers all)
+  (history matters)
+}
+
+By denoting the beginning and end of a Story with parentheses:
+
+@itemize{
+  @item{Stories become shorter because Arrows are unnecessary}
+  @item{Stories can be nested within other Stories}
+}
 
 @defmodule[dtc/story+/cats #:lang]
 
-All the same as dtc/story/cats.  Diff syntax..
+Provides the same vocabulary as @litchar{#lang dtc/story/cats} (see various definitions above).  But the grammar requires the parenthesized syntax instead of the Arrow syntax.
 
-TODO: Document here or there? Depends on how other one shapes up..
+To ease the transition, though, many of the images above can be used flexibly -- i.e. the following two programs are both valid and equivalent:
 
-Note: Certain racket functions work sqrt.  Reprovide?
+@codeblock{
+  #lang dtc/story+/cats
+  
+  (cat rotate redify)
+}
+
+@codeblock{
+  #lang dtc/story+/cats
+  
+  (redify (rotate (cat)))
+}
+
+Also note, although this is not mentioned in the book, this language is actually a super-set of the Racket language, meaning that you have access to all common functions (i.e. @racket[sqrt]).  You can also import other Racket libraries.  For example, using @racket[(require 2htdp/image)] can be used to bring in more image-related vocabulary words (as documented by the @racket[2htdp] library]):
+
+
+@codeblock{
+  #lang dtc/story+/cats
+  
+  (require 2htdp/image)
+  
+  (scale 2
+   (overlay 
+    (redify (rotate 15 (dijkstra)))
+    (circle 100 'solid 'black)))
+}
+
+@(h:scale 2
+   (h:overlay 
+    (redify (h:rotate 15 (dijkstra)))
+    (h:circle 100 'solid 'black)))
+
+
+This is so that students who go on to read @hyperlink["https://htdp.org/"]{How To Design Programs} can return and creatively reengage with the content of "Don't Teach Coding".
+
+Vocabulary words that overlap (like @racket[rotate]) will be overwritten by the @racket[require]d library.  So you must adhere to the grammatical rules documented by that library (i.e. putting the rotation angle in the first position of a @racket[(rotate ...)] expression.
 
 @defmodule[dtc/frames/cats #:lang]
 
-Has image function.  Has everything else from story/cats
-
-@defproc[(image [s Story?])
-         image?]{
-  
-}
-
+Same as @litchar{#lang dtc/story+/cats} (see above) but adds vocabularly related to nested Stories.  
 
 @defproc[(image [moments (listof moment?)])
          image?]{
-  Takes a Story (also known as a @racket[list]) and turns it into an image.
+  Takes a Story (also known as a @racket[list]) and turns it into an image.  The color scheme is designed to make clear which parts of the Story (if it were code) would execute as code and which parts would be treated as data.  The colors black and gray are used to differentiate between code and data.
 
   A simple example would be
 
@@ -484,48 +539,180 @@ Has image function.  Has everything else from story/cats
     (image '(this is a story))
   }
 
-The list may contain nested Stories, in which case, the sub-Stories are rendered in a nested 
-part of the resulting image.
+  Giving:
 
-Example:
+  @(a:image '(this is a story))
 
-  @(a:image '(this is a test))
+The provided Story may contain nested Stories, in which case, the sub-Stories are rendered in a nested part of the resulting image.
 
-  @(a:image `(this `(is a test)))
+  @codeblock{
+    #lang dtc/frames/animations
+    
+    (image `(this `(is a story)))
+  }
+   
+  Gives:
 
-  @(a:image `(this `(is `(a test))))
+  @(a:image `(this `(is a story)))
+
+
+  And:
+   
+  @codeblock{
+    #lang dtc/frames/animations
+    
+    (image `(this `(is `(a story))))
+  }
+
+  Gives:
+
+  @(a:image `(this `(is `(a story))))
+
+  The top-most (framing) Story is always render in black.  A quoted story is rendered in gray.  
+
+  Escaping from a gray story, causes the escaped story to render in black:
+
+  @codeblock{
+    #lang dtc/frames/animations
+    
+    (image `(this `(is ,(a story))))
+  }
+
+  Gives:
+
+  @(a:image `(this `(is ,(a story))))
+
+  The gray dot is a visual representation of the quotation mark, high on the line.  The black dot is the visual representation of the comma, low on the line.  
+
+  Finally, note that you have access to all of Racket, so there are many valid things you can do with Stories before they are handled by @racket[image].
+
+  @codeblock{
+    #lang dtc/frames/animations
+    
+    (image (shuffle '(this is a story)))
+  }
+
+  @(a:image '(a is story this))
+
+  And:
+  
+  @codeblock{
+    #lang dtc/frames/animations
+    
+    (image (reverse '(this is a story)))
+  }
+
+  Giving:
+
+  @(a:image (reverse '(this is a story)))
 }
 
 
 @defproc[(animation [moments (listof moment?)])
          image?]{
   
+  Converts moments into images and shows them in the frames of an animated sequence.  If the moment is already an image, that image will be used as the frame.  Strings, numbers, and symbols will be automatically coverted into images. 
 }
 
 
 
-@defproc[(napoleon/turk [n number?])
+@defproc[(napoleon/turk [n number? #f])
          image?]{
   
-  TODO:
-  Not all of these are finished...
+  If given a number @racket[n], this returns an image of move @racket[n] in the famous 1809 game between Napoleon Bonepart and Johann Allgaier, who was (unknown to Napoleon) hidden inside the Mechanical Turk.  The machine was believed by many to be an automaton.  Edgar Alan Poe debunked the hoax @hyperlink["https://en.wikipedia.org/wiki/Maelzel%27s_Chess_Player"]{in 1836}, but was incorrect about many of the mechanical details. 
+
+  If not given a number, @racket[napoleon/turk] returns a Story whose moments are the images in the game.  
+
+  For example, the full game can be animated to completion with:
+
+  @codeblock{
+    #lang dtc/frames/animations
+    
+    (animate (napoleon/turk))
+  }
 }
 
 @defproc[(napoleon/turk-raw [n number?])
          Story?]{
+  Like the above, but instead of returning images, this returns the full data that would be used to construct the image, using @racket[image-chess]. 
+
+  The following two programs are equivalent
+
+  @codeblock{
+    #lang dtc/frames/animations
+    
+    (napoleon/turk 4)
+  }
+
+  @codeblock{
+    #lang dtc/frames/animations
+    
+    (image-chess (napoleon/turk-raw 4))
+  }
+
+  Both give:
+
+  (a:napoleon/turk 4)
   
 }
 
 
 @defproc[(image-chess [s ChessStory?])
          image?]{
+  Turns a 64-moment Story describing where the pieces on a chessboard are into an image of a chess board.  
 
-  
+  Valid moments are:
+  @itemize{
+     @item{An underscore @racket['_] -- indicating an empty square.}
+     @item{A lowercase letter indicating a white piece.}
+     @item{An uppercase letter indicating a black piece.}
+  } 
+
+  Valid letters are @racket['K] (for King), @racket['Q] (for Queen), @racket['B] (for Bishop), @racket['N] (for Knight), @racket['R] (for Rook), and @racket['P] (for Pawn).
 }
+
 
 @defproc[(image-tic-tac-toe [s TicTacToeStory?])
          image?]{
-  TODO: IMplement 
+  Turns a 9-moment Story into an image of a Tic-Tac-Toe board.  Normal moments are @racket['_] (for a blank square), @racket['X], and @racket['O].  
+
+  @codeblock{
+    #lang dtc/frames/animations
+    
+    (image-tic-tac-toe 
+      `(_ _ _
+        _ X _ 
+        _ O _))
+  }
+
+  Gives:
+
+  (a:image-tic-tac-toe 
+      `(_ _ _
+        _ X _ 
+        _ O _))
+  
+
+  Note that other moment are accepted too.  For example, games of red cats vs blue Dijkstras may be generated as follows:
+
+  @codeblock{
+    #lang dtc/frames/animations
+
+    (define X (redify (cat))) 
+    (define O (bluify (dijkstra))) 
+
+    (image-tic-tac-toe 
+      `(_ _  _
+        _ ,X _ 
+        _ ,O _))
+  }
+
+  (a:image-tic-tac-toe 
+      `(_ _ _
+        _ ,(redify (cat)) _ 
+        _ ,(blueify (dijkstra)) _))
+  
+
 }
 
 
