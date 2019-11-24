@@ -44,3 +44,8 @@
 (require (except-in
             "../story/cats.rkt"
             #%module-begin))
+
+
+(provide (all-from-out "./tic-tac-toe.rkt"))
+(require "./tic-tac-toe.rkt")
+

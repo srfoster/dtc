@@ -6,6 +6,8 @@
 @author{Stephen R. Foster and Lindsey Handley}
 
 @(require (prefix-in a: dtc/frames/story-images/main))
+@(require (prefix-in a: dtc/frames/chess/main))
+@(require (prefix-in a: dtc/frames/tic-tac-toe))
 @(require dtc/story/cats)
 @(require (prefix-in h: 2htdp/image))
 
@@ -334,6 +336,12 @@ A language with various vocabulary for producing and manipulating images of cats
   @(meme-teacher)
 }
 
+@defproc[(dtc-cover) void?]{
+  The cover of the book!
+
+  @(h:scale 2 (dtc-cover))
+}
+
 @defproc[(dijkstra) void?]{
   Edsger W. Dijkstra (1930-2002), a famous and influential computer scientist -- a prolific writer, researcher, and mathematician.  
   
@@ -652,7 +660,7 @@ The provided Story may contain nested Stories, in which case, the sub-Stories ar
 
   Both give:
 
-  (a:napoleon/turk 4)
+  @(a:napoleon/turk 4)
   
 }
 
@@ -687,13 +695,13 @@ The provided Story may contain nested Stories, in which case, the sub-Stories ar
 
   Gives:
 
-  (a:image-tic-tac-toe 
+  @(a:image-tic-tac-toe 
       `(_ _ _
         _ X _ 
         _ O _))
   
 
-  Note that other moment are accepted too.  For example, games of red cats vs blue Dijkstras may be generated as follows:
+  Note that other moments are accepted too.  For example, games of red cats vs blue Dijkstras may be generated as follows:
 
   @codeblock{
     #lang dtc/frames/animations
@@ -707,7 +715,7 @@ The provided Story may contain nested Stories, in which case, the sub-Stories ar
         _ ,O _))
   }
 
-  (a:image-tic-tac-toe 
+  @(a:image-tic-tac-toe 
       `(_ _ _
         _ ,(redify (cat)) _ 
         _ ,(blueify (dijkstra)) _))
@@ -722,9 +730,7 @@ Here we document the various nestable Story languages from @bold{Chapter 4}.
 
 @defmodule[dtc/complete #:lang]
 
-This language has everthing in it that Racket does, and more.   
-
-We won't document everything from Racket here -- only the vocabulary that's directly used in @emph{Don't Teach Coding}.    
+This language has everthing in it that Racket does, and more.  We won't document everything from Racket here -- only the vocabulary that's directly used in @emph{Don't Teach Coding}.    
 
 @defform[(define word def)]{
   Allows you to add the new @racket[word] to your language from that point forward.    
@@ -932,8 +938,90 @@ Remember that once something is an image, other vocabulary that pertains to imag
        (first-viral-cat ,(first-viral-cat))))
   }
 
+  @codeblock{
+   #lang dtc/complete
 
-  TODO: Embed the large programs from the book...
+   (define dtc-trivia-deck
+    `(("Year of first program comprehension fMRI study?"
+       "2014")
+
+      ("American Sign Language shares what \"modality\" or
+        \"channel\" with computer languages?"
+       "The visual-spatial modality, or channel")
+
+      ("The oldest known story-within-a-story dates back to?"
+       "Ancient Egypt (18th to 16th century BC).
+       King Cheops' 5 sons tell 5 stories about magic and
+       miracles.")
+
+      ("Both the backslash and the backtick serve a similar
+        abstract purpose.  What is it?"
+       "To \"escape\" the thing that comes after it.  The
+        backslash precedes a literal quote or a literal
+        backslash.  The backtick precedes a literal
+        (uninterpreted) story.")
+
+      ("Programming comprehension, understanding American Sign
+        Language, and reading English have all been
+        shown to activate which part of the brain?"
+       "Broca's area.")
+
+      ("In a Story that describes a flashcard, how many
+        Moments are there?"
+       2)
+
+      ("In a Story that describes a tic-tac-toe board, how
+        many Moments are there?"
+       9)
+
+      ("In a Story that describes a deck of cards, how many
+        Moments are there?"
+       "It depends.  As many as there are cards in the deck.")
+
+      ("In a Story that describes a game of chess, how many
+        Moments are there?"
+       "It depends.  As many as there are moves in the game.")
+
+      ("In a Story that describes a game of tic-tac-toe, how
+        many Moments are there?"
+       "It depends.  As many as there are moves in the game.
+        But no more than 9.")
+
+      ("Write a simple program that animates through a deck
+        with two cards, both of which have pictures of cats
+        on the back."
+       (image-code
+          `(animate-deck
+             `("What does the first viral cat on the internet
+                look like?"
+               ,(first-viral-cat))
+             `("What does the oldest photo of a cat look
+                like?"
+               ,(cat)))))
+
+      ("Write a simple program that animates through the
+        numbers from 1 to 10."
+       (image-code
+          `(animate
+             `(1 2 3 4 5  6 7 8 9 10))))
+
+      ("Write a simple program that shows a picture of a Story
+        whose three moments are three images of cats."
+       (image-code
+          `(image
+             `(,(cat) ,(edison-cat) ,(first-viral-cat)))))
+
+      ("Write a Story that shows a picture of a flashcard that
+        has a picture of a chessboard on the back."
+       (image-code
+          `(image
+             `("What does the starting state of a chessboard
+                look like?"
+               ,(napoleon/turk 1)))))))
+
+
+      (animate-deck dtc-trivia-deck)
+  }
 }
 
 

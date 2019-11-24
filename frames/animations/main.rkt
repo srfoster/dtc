@@ -12,7 +12,7 @@
          animate)
 
 (define (animate-deck stuff)
-  stuff)
+  (animate stuff))
 
 (define (animate frames)
   (define es (map datum->entity 

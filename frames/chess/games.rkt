@@ -6,45 +6,37 @@
 
 (require "./chess.rkt")
 
+(require (prefix-in napoleon/turk: "./games/napoleon-turk-1809.rkt") 
+         chess)
+
+(define (chess->list c)
+  (for*/list ([r (in-chess-ranks #:descending? #t)]
+              [f (in-chess-files)])
+    (piece->symbol
+      (chess-board-ref c 
+                       (chess-square #:rank r #:file f)))))
+
+(define (piece->symbol cp)
+  (define p (and cp 
+                 (colored-chess-piece-type cp)))
+
+  (define s
+    (cond
+      [(not p) "_"]
+      [(equal? king p) "k"]
+      [(equal? queen p) "q"]
+      [(equal? bishop p) "b"]
+      [(equal? knight p) "n"]
+      [(equal? rook p) "r"]
+      [(equal? pawn p) "p"]))
+
+  (string->symbol
+    (if (and cp (equal? black (colored-chess-piece-owner cp)))
+      (string-upcase s)   
+      s )))
+
 (define napoleon/turk-full
-  (list
-    chess-start 
-
-    '(R N B Q K B N R
-      P P P P P P P P
-      _ _ _ _ _ _ _ _
-      _ _ _ _ _ _ _ _
-      _ _ _ _ p _ _ _ 
-      _ _ _ _ _ _ _ _
-      p p p p _ p p p
-      r n b q k b n r)
-
-    '(R N B Q K B N R
-      P P P P _ P P P
-      _ _ _ _ _ _ _ _
-      _ _ _ _ P _ _ _
-      _ _ _ _ p _ _ _ 
-      _ _ _ _ _ _ _ _
-      p p p p _ p p p
-      r n b q k b n r)
-
-    '(R N B Q K B N R
-      P P P P _ P P P
-      _ _ _ _ _ _ _ _
-      _ _ _ _ P _ _ _
-      _ _ _ _ p _ _ _ 
-      _ _ _ _ _ q _ _
-      p p p p _ p p p
-      r n b _ k b n r)
-
-    '(R _ B Q K B N R
-      P P P P _ P P P
-      _ _ N _ _ _ _ _
-      _ _ _ _ P _ _ _
-      _ _ b _ p _ _ _ 
-      _ _ _ _ _ q _ _
-      p p p p _ p p p
-      r n b _ k _ n r)))
+  (map chess->list napoleon/turk:moves))
 
 (define (napoleon/turk n)
   (image-chess (napoleon/turk-raw n)))

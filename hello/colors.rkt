@@ -1,5 +1,5 @@
 #lang racket
-(require pict)
+(require 2htdp/image)
 
 (module reader syntax/module-reader
   dtc/hello/colors)
@@ -10,7 +10,12 @@
 (define (pick l)
   (first (shuffle l)))
 
-(define (print s #:bg (bg (pick '(red green blue cyan purple magenta))))
-  (cc-superimpose
-    (filled-rectangle 100 100 #:color (~a bg))
-    (text (~a s)))) 
+(define shapes
+  (list square circle star))
+
+(define (print s 
+               #:shape (shape (pick shapes))
+               #:bg (bg (pick '(red green blue cyan purple magenta))))
+  (overlay
+    (text (~a s) 24 'black)   
+    (shape 100 'solid bg)))
