@@ -1,6 +1,6 @@
 #lang info
 (define collection "dtc")
-(define deps '("base" "image-coloring" "meta-engine" "rchess"))
+(define deps '("base" "image-coloring" "https://github.com/thoughtstem/meta-engine.git" "rchess"))
 (define build-deps '("scribble-lib" "racket-doc" "rackunit-lib"))
 (define scribblings '(("scribblings/dtc.scrbl" ())))
 (define pkg-desc "Description Here")
