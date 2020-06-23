@@ -24,10 +24,24 @@
     (tokens->stories tokens) )
 
   #`(#%module-begin
-     #,@stories))
+     #,@(map fix-first stories)))
+
+(define-for-syntax 
+  (fix-first l)
+  ;Not the least bit hygenic, but it works.
+
+  (cons
+    `(if (procedure? ,(first l)) ,(first l)
+	 ;If it isn't already a procedure,
+	 ; assume it's an image and convert it to a procedure
+	 ; that takes verbs as arguments and applies them to the image.  Lets people construct phrases with [Inserted Image] -> VERB -> VERB
+	 (lambda (a . args)
+	   (apply cat-main ,(first l) a args)))
+    (rest l)))
 
 (define-syntax-rule (normal-begin e ...)
   (#%module-begin e ...))
+
 
 ;Actual cat lang below.  TODO: Move to new file when this gets too long.  
 
