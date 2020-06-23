@@ -9,7 +9,8 @@
 (define delay 50)
 
 (provide animate-deck
-         animate)
+         animate
+	 (rename-out [animate animation]))
 
 (define (animate-deck stuff)
   (animate stuff))
